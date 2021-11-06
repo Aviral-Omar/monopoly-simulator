@@ -1,6 +1,6 @@
 public class TaxSquare extends Square {
 
-	private int amount;
+	private final int amount;
 
 	TaxSquare(String name, int amount) {
 		super(name);
