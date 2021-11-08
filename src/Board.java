@@ -6,6 +6,7 @@ public class Board {
 
 	Board(Bank bank) {
 		squares = new ArrayList<Square>(40);
+
 		squares.set(0, new GoSquare("Go"));
 		squares.set(1, new RealEstateSquare("Mediterranean Avenue", bank.searchDeed("Mediterranean Avenue")));
 		squares.set(2, new CommunityChestSquare("Community Chest"));
@@ -46,6 +47,10 @@ public class Board {
 		squares.set(37, new RealEstateSquare("Park Place", bank.searchDeed("Park Place")));
 		squares.set(38, new TaxSquare("Luxury Tax", 100));
 		squares.set(39, new RealEstateSquare("Boardwalk", bank.searchDeed("Boardwalk")));
+	}
+
+	public Square getSquare(int position) {
+		return squares.get(position);
 	}
 
 }

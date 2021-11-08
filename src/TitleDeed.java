@@ -14,4 +14,12 @@ public abstract class TitleDeed {
 	public String getName() {
 		return name;
 	}
+
+	public Actor getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Actor owner) {
+		this.owner = owner;
+	}
 }
