@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
 
@@ -9,11 +10,14 @@ public class Game {
 	Game(int numberOfPlayers) {
 		// TODO input player names
 		players = new ArrayList<Player>(numberOfPlayers);
+		System.out.println("Enter name of each player");
+		Scanner sc = new Scanner(System.in);
 
-		// Setting player names automatically
+		// Setting player names automatically 
 		// Giving each player $1500 and remaining to bank
+		// *********(Edit-Changed to players name)*********
 		for (int i = 0; i < numberOfPlayers; i++) {
-			players.set(i, new Player("Player " + (i + 1), 1500));
+			players.set(i, new Player(sc.nextLine(), 1500));
 		}
 
 		bank = new Bank(20580 - numberOfPlayers * 1500);
