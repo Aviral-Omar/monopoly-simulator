@@ -1,6 +1,6 @@
 public class StationDeed extends TitleDeed {
 
-	StationDeed(Actor owner, int price, int mortgageValue) {
-		super(owner, price, mortgageValue);
+	StationDeed(String name, Actor owner, int price, int mortgageValue) {
+		super(name, owner, price, mortgageValue);
 	}
 }
