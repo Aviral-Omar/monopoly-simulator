@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player extends Actor {
 
 	private final String name;
@@ -7,6 +9,7 @@ public class Player extends Actor {
 		super(cash);
 		this.name = name;
 		position = 0;
+		titleDeeds = new ArrayList<TitleDeed>();
 	}
 
 	public String getName() {

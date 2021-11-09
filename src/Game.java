@@ -17,7 +17,7 @@ public class Game {
 		// Giving each player $1500 and remaining to bank
 		// *********(Edit-Changed to players name)*********
 		for (int i = 0; i < numberOfPlayers; i++) {
-			players.set(i, new Player(in.nextLine(), 1500));
+			players.add(new Player(in.nextLine(), 1500));
 		}
 
 		bank = new Bank(20580 - numberOfPlayers * 1500);
@@ -39,7 +39,7 @@ public class Game {
 
 			player.addCash(200);
 
-			System.out.println(player + " gets $200 for landing on Go.");
+			System.out.println(player + " received $200 for landing on Go.");
 
 		} else if (square instanceof TaxSquare) {
 
@@ -123,16 +123,30 @@ public class Game {
 		Player player = players.get(playerNumber);
 		// TODO Add jail functionality
 		// TODO Add doubles roll functionality
-		// TODO Add passing GO functionality
 		int dieOne = rollDie();
 		int dieTwo = rollDie();
 
 		System.out.println(player + " rolled " + (dieOne + dieTwo) + ".");
 
-		player.setPosition(player.getPosition() + dieOne + dieTwo);
+		int finalPosition = player.getPosition() + dieOne + dieTwo;
+
+		// Completing one round
+		if (finalPosition >= 40) {
+			finalPosition %= 40;
+			if (finalPosition > 0) {
+				// Passing GO gives $200
+
+				player.addCash(200);
+
+				System.out.println(player + " received $200 for passing Go.");
+			}
+		}
+
+		player.setPosition(finalPosition);
+
 		Square square = board.getSquare(player.getPosition());
 
-		System.out.println(player + " landed on " + square + ",");
+		System.out.println(player + " landed on " + square + ".");
 
 		action(square, player, dieOne + dieTwo);
 	}

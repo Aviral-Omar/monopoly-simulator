@@ -9,7 +9,16 @@ public class Monopoly {
 
 		System.out.print("Enter number of players: ");
 
-		Game game = new Game(in.nextInt());
+		int numberOfPlayers = in.nextInt();
+
+		Game game = new Game(numberOfPlayers);
+
+		for (int round = 0; round < 8; round++) {
+			for (int turn = 0; turn < numberOfPlayers; turn++) {
+				game.simulateTurn(turn);
+			}
+		}
+
 		in.close();
 	}
 

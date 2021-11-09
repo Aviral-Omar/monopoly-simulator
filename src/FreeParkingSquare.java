@@ -1,7 +1,7 @@
 public class FreeParkingSquare extends Square {
 
-	FreeParkingSquare(String name) {
-		super(name);
+	FreeParkingSquare() {
+		super("Free Parking");
 	}
 
 }

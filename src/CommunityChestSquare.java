@@ -1,7 +1,7 @@
 public class CommunityChestSquare extends Square {
 
-	CommunityChestSquare(String name) {
-		super(name);
+	CommunityChestSquare() {
+		super("Community Chest");
 	}
 
 }

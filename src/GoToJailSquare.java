@@ -1,7 +1,7 @@
 public class GoToJailSquare extends Square {
 
-	GoToJailSquare(String name) {
-		super(name);
+	GoToJailSquare() {
+		super("Go To Jail");
 	}
 
 }
