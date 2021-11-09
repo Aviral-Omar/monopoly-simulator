@@ -15,4 +15,8 @@ public class RealEstateDeed extends TitleDeed {
 		this.costOfHouse = costOfHouse;
 		this.rentLevels = new ArrayList<Integer>(Arrays.asList(rentLevels));
 	}
+
+	public int getRent(int level) {
+		return rentLevels.get(level);
+	}
 }

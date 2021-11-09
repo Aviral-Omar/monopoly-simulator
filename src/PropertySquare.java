@@ -1,5 +1,5 @@
 public abstract class PropertySquare extends Square {
-	private final TitleDeed titleDeed;
+	protected final TitleDeed titleDeed;
 
 	PropertySquare(String name, TitleDeed titleDeed) {
 		super(name);

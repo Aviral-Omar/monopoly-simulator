@@ -32,6 +32,7 @@ public class Game {
 
 	private void action(Square square, Player player, int dieTotal) {
 		// Enhanced switch statement
+		// TODO Add houses functionality
 		// TODO Add all actions
 		// TODO Add game end condition
 		if (square instanceof GoSquare) {
@@ -47,12 +48,11 @@ public class Game {
 			player.deductCash(amount);
 			bank.addCash(amount);
 
-			System.out.println(player + " paid $" + amount + " to bank.");
+			System.out.println(player + " paid $" + amount + " to bank as " + square + ".");
 
 		} else if (square instanceof PropertySquare) {
 			// TODO Add rent collection, bankruptcy check, possibly auction
 
-			// Rent is 4 * dieTotal if 1 is owned and 10 * dieTotal if both are owned
 			if (square instanceof UtilitySquare) {
 
 				UtilitySquare sq = (UtilitySquare) square;
@@ -63,15 +63,58 @@ public class Game {
 					sq.buyProperty(player, bank);
 
 				} else if (owner != player) {
+					// Rent is 4 * dieTotal if 1 is owned and 10 * dieTotal if both are owned
+					int rent = 0;
 					if (((Player) owner).getUtilitiesOwned() == 1) {
-						player.deductCash(4 * dieTotal);
-						owner.addCash(4 * dieTotal);
+						rent = 4 * dieTotal;
+						player.deductCash(rent);
+						owner.addCash(rent);
 					} else {
-						player.deductCash(10 * dieTotal);
-						owner.addCash(10 * dieTotal);
+						rent = 10 * dieTotal;
+						player.deductCash(rent);
+						owner.addCash(rent);
 					}
+					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
 				}
 
+			} else if (square instanceof StationSquare) {
+
+				StationSquare sq = (StationSquare) square;
+				Actor owner = sq.getOwner();
+
+				if (owner == bank) {
+
+					sq.buyProperty(player, bank);
+
+				} else if (owner != player) {
+					// Rent levels are 25, 50, 100, 200
+
+					int rent = 25 * (int) Math.pow(2, ((Player) owner).getStationsOwned() - 1);
+
+					player.deductCash(rent);
+					owner.addCash(rent);
+
+					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+				}
+			} else {
+				RealEstateSquare sq = (RealEstateSquare) square;
+				Actor owner = sq.getOwner();
+
+				if (owner == bank) {
+
+					sq.buyProperty(player, bank);
+
+				} else if (owner != player) {
+					// Rent levels are based on title deed
+					// TODO check double rent condition
+
+					int rent = sq.getRent();
+
+					player.deductCash(rent);
+					owner.addCash(rent);
+
+					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+				}
 			}
 		}
 	}

@@ -31,6 +31,16 @@ public class Player extends Actor {
 		return utilitiesOwned;
 	}
 
+	public int getStationsOwned() {
+		int stationsOwned = 0;
+		for (TitleDeed t : titleDeeds) {
+			if (t instanceof StationDeed) {
+				stationsOwned++;
+			}
+		}
+		return stationsOwned;
+	}
+
 	@Override
 	public String toString() {
 		return name;

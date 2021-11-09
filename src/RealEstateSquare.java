@@ -8,4 +8,8 @@ public class RealEstateSquare extends PropertySquare {
 		numberOfHouses = 0;
 		hasHotel = false;
 	}
+
+	public int getRent() {
+		return ((RealEstateDeed) titleDeed).getRent(hasHotel ? 5 : numberOfHouses);
+	}
 }

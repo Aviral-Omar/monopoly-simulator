@@ -5,3 +5,4 @@
 -   [Community Chest Cards](https://monopoly.fandom.com/wiki/Community_Chest)
 -   [Chance Cards](https://monopoly.fandom.com/wiki/Chance)
 -   [Title Deeds](https://i.ebayimg.com/d/w1600/pict/174694873455_/Monopoly-Property-Title-Deed-Cards-Complete-Set.jpg)
+-   [Title Deeds Info](https://fliphtml5.com/bvlg/brca/basic)
