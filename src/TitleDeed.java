@@ -22,4 +22,13 @@ public abstract class TitleDeed {
 	public void setOwner(Actor owner) {
 		this.owner = owner;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

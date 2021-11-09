@@ -21,4 +21,19 @@ public class Player extends Actor {
 		this.position = position;
 	}
 
+	public int getUtilitiesOwned() {
+		int utilitiesOwned = 0;
+		for (TitleDeed t : titleDeeds) {
+			if (t instanceof UtilityDeed) {
+				utilitiesOwned++;
+			}
+		}
+		return utilitiesOwned;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }
