@@ -8,14 +8,12 @@ public class Game {
 	private final ArrayList<Player> players;
 
 	Game(int numberOfPlayers) {
-		// TODO input player names
 		players = new ArrayList<Player>(numberOfPlayers);
 		System.out.println("Enter name of each player");
 		Scanner in = new Scanner(System.in);
 
-		// Setting player names automatically
+		// Getting player names from user
 		// Giving each player $1500 and remaining to bank
-		// *********(Edit-Changed to players name)*********
 		for (int i = 0; i < numberOfPlayers; i++) {
 			players.add(new Player(in.nextLine(), 1500));
 		}
@@ -150,4 +148,13 @@ public class Game {
 
 		action(square, player, dieOne + dieTwo);
 	}
+
+	public void displayState() {
+		System.out.println("Game State:");
+		for (Player player : players) {
+			System.out.println(player + "\t" + board.getSquare(player.getPosition()) + "\t$" + player.getCash() + "\t"
+					+ player.getDeeds());
+		}
+	}
+
 }

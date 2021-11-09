@@ -17,6 +17,7 @@ public class Monopoly {
 			for (int turn = 0; turn < numberOfPlayers; turn++) {
 				game.simulateTurn(turn);
 			}
+			game.displayState();
 		}
 
 		in.close();

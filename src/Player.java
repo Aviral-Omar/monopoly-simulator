@@ -44,6 +44,14 @@ public class Player extends Actor {
 		return stationsOwned;
 	}
 
+	public String getDeeds() {
+		String deeds = "";
+		for (TitleDeed t : titleDeeds) {
+			deeds += t + "\t";
+		}
+		return deeds;
+	}
+
 	@Override
 	public String toString() {
 		return name;
