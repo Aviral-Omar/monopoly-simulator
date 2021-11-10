@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public abstract class Actor {
 	private int cash;
 	protected ArrayList<TitleDeed> titleDeeds;
+	private int housesOwned;
+	private int hotelsOwned;
 
 	Actor(int cash) {
 		this.cash = cash;

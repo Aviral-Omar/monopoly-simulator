@@ -6,6 +6,7 @@ public class Game {
 	private final Board board;
 	private final Bank bank;
 	private final ArrayList<Player> players;
+	private final CommunityChestDeck communityChestDeck;
 
 	Game(int numberOfPlayers) {
 		players = new ArrayList<Player>(numberOfPlayers);
@@ -21,7 +22,82 @@ public class Game {
 		bank = new Bank(20580 - numberOfPlayers * 1500);
 		board = new Board(bank);
 
+		communityChestDeck = new CommunityChestDeck();
+
 		in.close();
+	}
+
+	private void communityChestAction(Player player, CommunityChestCard card) {
+
+		switch (card.getAction()) {
+
+		case AdvanceToGo -> {
+			player.setPosition(0);
+			player.addCash(200);
+			bank.deductCash(200);
+		}
+		case BankError -> {
+			player.addCash(200);
+			bank.deductCash(200);
+		}
+		case BeautyContest -> {
+			player.addCash(10);
+			bank.deductCash(10);
+		}
+		case DoctorFee -> {
+			player.deductCash(50);
+			bank.addCash(50);
+		}
+		case GetOutOfJail -> {
+			// TODO implement get out of jail
+		}
+		case GoToJail -> {
+			// TODO implement go to jail
+		}
+		case Birthday -> {
+			for (Player p : players) {
+				p.deductCash(10);
+				player.addCash(10);
+			}
+		}
+		case Hospital -> {
+			player.deductCash(100);
+			bank.addCash(100);
+		}
+		case IncomeTaxRefund -> {
+			player.addCash(20);
+			bank.deductCash(20);
+		}
+		case Inherit -> {
+			player.addCash(100);
+			bank.deductCash(100);
+		}
+		case LifeInsuranceMatures -> {
+			player.addCash(100);
+			bank.deductCash(100);
+		}
+		case SaleOfStock -> {
+			player.addCash(50);
+			bank.deductCash(50);
+		}
+		case SchoolFees -> {
+			player.deductCash(50);
+			bank.addCash(50);
+		}
+		case ConsultancyFee -> {
+			player.addCash(25);
+			bank.deductCash(25);
+		}
+		case StreetRepairs -> {
+			// TODO this card
+		}
+		case HolidayFundMatures -> {
+			player.addCash(100);
+			bank.deductCash(100);
+		}
+
+		}
+
 	}
 
 	private int rollDie() {
@@ -36,6 +112,7 @@ public class Game {
 		if (square instanceof GoSquare) {
 
 			player.addCash(200);
+			bank.deductCash(200);
 
 			System.out.println(player + " received $200 for landing on Go.");
 
@@ -114,6 +191,18 @@ public class Game {
 					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
 				}
 			}
+		} else if (square instanceof CommunityChestSquare) {
+
+			CommunityChestCard card = (CommunityChestCard) communityChestDeck.pickFromTop();
+			communityChestAction(player, card);
+
+			if (card.getAction() != CommunityChestActions.GetOutOfJail) {
+				communityChestDeck.insertAtBottom(card);
+			}
+
+			System.out.println(player + " drew a Community Chest Card.");
+			System.out.println(CommunityChestDeck.getMessage(card.getAction(), player));
+
 		}
 	}
 
@@ -135,6 +224,7 @@ public class Game {
 				// Passing GO gives $200
 
 				player.addCash(200);
+				bank.deductCash(200);
 
 				System.out.println(player + " received $200 for passing Go.");
 			}
