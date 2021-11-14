@@ -223,6 +223,7 @@ public class Game {
 		}
 		case MoveBack -> {
 			player.setPosition(player.getPosition() - 3);
+			System.out.println(player + " landed on " + board.getSquare(player.getPosition()) + ".");
 		}
 		case GoToJail -> {
 			player.sendToJail();

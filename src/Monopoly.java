@@ -14,7 +14,7 @@ public class Monopoly {
 		Game game = new Game(numberOfPlayers);
 
 		// TODO control number of rounds
-		for (int round = 0; round < 12; round++) {
+		for (int round = 0; round < 20; round++) {
 			for (int turn = 0; turn < numberOfPlayers; turn++) {
 				game.simulateTurn(turn);
 			}
