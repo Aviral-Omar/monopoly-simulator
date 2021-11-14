@@ -9,7 +9,12 @@ public class RealEstateSquare extends PropertySquare {
 		hasHotel = false;
 	}
 
-	public int getRent() {
-		return ((RealEstateDeed) titleDeed).getRent(hasHotel ? 5 : numberOfHouses);
+	public int getRent(boolean ownsAllOfColour) {
+		// double if all of colour owned
+		return (ownsAllOfColour ? 2 : 1) * ((RealEstateDeed) titleDeed).getRent(hasHotel ? 5 : numberOfHouses);
+	}
+
+	public Colours getColour() {
+		return ((RealEstateDeed) titleDeed).getColour();
 	}
 }

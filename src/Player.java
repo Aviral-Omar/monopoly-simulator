@@ -52,6 +52,23 @@ public class Player extends Actor {
 		return stationsOwned;
 	}
 
+	public boolean ownsAllOfColour(Colours colour) {
+		int n = 0;
+		for (TitleDeed t : titleDeeds) {
+			if (t instanceof RealEstateDeed) {
+				Colours c = ((RealEstateDeed) t).getColour();
+				if (c == colour) {
+					n++;
+				}
+			}
+		}
+		if (colour == Colours.Brown || colour == Colours.DarkBlue) {
+			return n == 2;
+		} else {
+			return n == 3;
+		}
+	}
+
 	public String getDeeds() {
 		String deeds = "";
 		for (TitleDeed t : titleDeeds) {

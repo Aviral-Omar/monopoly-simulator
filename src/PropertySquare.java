@@ -12,13 +12,17 @@ public abstract class PropertySquare extends Square {
 
 	public void buyProperty(Actor buyer, Actor seller) {
 		int price = titleDeed.getPrice();
-		titleDeed.setOwner(buyer);
-		buyer.addDeed(titleDeed);
-		buyer.deductCash(price);
-		seller.removeDeed(titleDeed);
-		seller.addCash(price);
+		if (buyer.getCash() > price) {
+			titleDeed.setOwner(buyer);
+			buyer.addDeed(titleDeed);
+			buyer.deductCash(price);
+			seller.removeDeed(titleDeed);
+			seller.addCash(price);
 
-		System.out.println(buyer + " bought " + titleDeed + " for $" + price + " from " + seller + ".");
+			System.out.println(buyer + " bought " + titleDeed + " for $" + price + " from " + seller + ".");
+		} else {
+			System.out.println(buyer + " has insufficient cash for " + getName() + ".");
+		}
 
 	}
 }

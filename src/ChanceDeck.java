@@ -34,11 +34,9 @@ public class ChanceDeck extends CardDeck<ChanceCard> {
 		case MoveBack:
 			yield player + " needs to move back by 3 steps.";
 		case GoToJail:
-			// Already displayed message
-			yield "";
+			yield player + " was sent to jail.";
 		case PayForRepairs:
 			yield player + " needs to pay $25 per house and $50 per hotel for repairs.";
-		// TODO Display amount to be paid.
 		case PaySpeedingFine:
 			yield player + " paid $15 to the bank for speeding.";
 		case AdvanceToReadingRailroad:

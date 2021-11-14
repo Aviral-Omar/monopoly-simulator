@@ -68,7 +68,6 @@ public class Game {
 		}
 		case GoToJail -> {
 			player.sendToJail();
-			System.out.println(player + " was sent to jail.");
 
 			Card getOutOfJail = player.checkGetOutOfJail();
 
@@ -227,7 +226,6 @@ public class Game {
 		}
 		case GoToJail -> {
 			player.sendToJail();
-			System.out.println(player + " was sent to jail.");
 
 			Card getOutOfJail = player.checkGetOutOfJail();
 
@@ -276,7 +274,6 @@ public class Game {
 
 	private void action(Square square, Player player, int dieTotal) {
 		// TODO Add houses functionality
-		// TODO Add all actions
 		// TODO Add game end condition
 		if (square instanceof GoSquare) {
 
@@ -295,7 +292,7 @@ public class Game {
 			System.out.println(player + " paid $" + amount + " to bank as " + square + ".");
 
 		} else if (square instanceof PropertySquare) {
-			// TODO Add rent collection, bankruptcy check, possibly auction
+			// TODO Check sufficient balance, bankruptcy check, possibly auction
 
 			if (square instanceof UtilitySquare) {
 
@@ -350,9 +347,8 @@ public class Game {
 
 				} else if (owner != player) {
 					// Rent levels are based on title deed
-					// TODO check double rent condition
 
-					int rent = sq.getRent();
+					int rent = sq.getRent(player.ownsAllOfColour(sq.getColour()));
 
 					player.deductCash(rent);
 					owner.addCash(rent);
@@ -364,24 +360,23 @@ public class Game {
 
 			CommunityChestCard card = (CommunityChestCard) communityChestDeck.pickFromTop();
 			System.out.println(player + " drew a Community Chest Card.");
+			System.out.println(CommunityChestDeck.getMessage(card.getAction(), player));
 			communityChestAction(player, card);
 
 			if (card.getAction() != CommunityChestActions.GetOutOfJail) {
 				communityChestDeck.insertAtBottom(card);
 			}
 
-			System.out.println(CommunityChestDeck.getMessage(card.getAction(), player));
-
 		} else if (square instanceof ChanceSquare) {
 
 			ChanceCard card = (ChanceCard) chanceDeck.pickFromTop();
 			System.out.println(player + " drew a Chance Card.");
+			System.out.println(ChanceDeck.getMessage(card.getAction(), player));
 			chanceAction(square, player, dieTotal, card);
 
 			if (card.getAction() != ChanceActions.GetOutOfJail) {
 				chanceDeck.insertAtBottom(card);
 			}
-			System.out.println(ChanceDeck.getMessage(card.getAction(), player));
 
 		} else if (square instanceof GoToJailSquare) {
 
@@ -477,8 +472,8 @@ public class Game {
 	public void displayState() {
 		System.out.println("Game State:");
 		for (Player player : players) {
-			System.out.println(player + "\t" + board.getSquare(player.getPosition()) + "\t$" + player.getCash() + "\t"
-					+ player.getDeeds());
+			System.out.printf("%-12s%-24s$%-8s\t", player, board.getSquare(player.getPosition()), player.getCash());
+			System.out.println(player.getDeeds());
 		}
 	}
 

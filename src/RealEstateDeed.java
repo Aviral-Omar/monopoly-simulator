@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//TODO update UML
+
 public class RealEstateDeed extends TitleDeed {
 
 	private final Colours colour;
@@ -18,5 +20,9 @@ public class RealEstateDeed extends TitleDeed {
 
 	public int getRent(int level) {
 		return rentLevels.get(level);
+	}
+
+	public Colours getColour() {
+		return colour;
 	}
 }
