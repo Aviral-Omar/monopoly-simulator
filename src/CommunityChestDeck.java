@@ -24,7 +24,8 @@ public class CommunityChestDeck extends CardDeck<CommunityChestCard> {
 		case GetOutOfJail:
 			yield player + " received a Get Out Of Jail free card.";
 		case GoToJail:
-			yield player + " went to Jail.";
+			// Already displayed message
+			yield "";
 		case Birthday:
 			yield player + " collected $10 from every player for their birthday.";
 		case Hospital:
@@ -43,6 +44,7 @@ public class CommunityChestDeck extends CardDeck<CommunityChestCard> {
 			yield player + " received $25 as Consultancy Fee.";
 		case StreetRepairs:
 			yield player + " paid $40 per house and $115 per hotel for street repairs.";
+		// TODO display amount
 		case HolidayFundMatures:
 			yield player + " received $100 as their Holiday fund matured.";
 		};

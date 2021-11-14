@@ -4,12 +4,20 @@ public class Player extends Actor {
 
 	private final String name;
 	private int position;
+	private boolean inJail;
+	private int turnsInJail;
+	private ChanceCard chanceGetOutOfJail;
+	private CommunityChestCard communityGetOutOfJail;
 
 	Player(String name, int cash) {
 		super(cash);
 		this.name = name;
 		position = 0;
 		titleDeeds = new ArrayList<TitleDeed>();
+		inJail = false;
+		turnsInJail = 0;
+		chanceGetOutOfJail = null;
+		communityGetOutOfJail = null;
 	}
 
 	public String getName() {
@@ -50,6 +58,52 @@ public class Player extends Actor {
 			deeds += t + "\t";
 		}
 		return deeds;
+	}
+
+	public void setChanceGetOutOfJail(ChanceCard chanceGetOutOfJail) {
+		this.chanceGetOutOfJail = chanceGetOutOfJail;
+	}
+
+	public void setCommunityGetOutOfJail(CommunityChestCard communityGetOutOfJail) {
+		this.communityGetOutOfJail = communityGetOutOfJail;
+	}
+
+	public void sendToJail() {
+		setPosition(10);
+		inJail = true;
+		turnsInJail = 0;
+	}
+
+	public boolean isInJail() {
+		return inJail;
+	}
+
+	public int getTurnsInJail() {
+		return turnsInJail;
+	}
+
+	public void setTurnsInJail(int turnsInJail) {
+		this.turnsInJail = turnsInJail;
+	}
+
+	public void setInJail(boolean inJail) {
+		this.inJail = inJail;
+	}
+
+	public Card checkGetOutOfJail() {
+		Card getOutOfJail;
+		if (chanceGetOutOfJail != null) {
+			getOutOfJail = chanceGetOutOfJail;
+			chanceGetOutOfJail = null;
+			setInJail(false);
+			setTurnsInJail(0);
+		} else {
+			getOutOfJail = communityGetOutOfJail;
+			communityGetOutOfJail = null;
+			setInJail(false);
+			setTurnsInJail(0);
+		}
+		return getOutOfJail;
 	}
 
 	@Override
