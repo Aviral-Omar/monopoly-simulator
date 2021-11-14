@@ -68,7 +68,7 @@ public class Game {
 		}
 		case GoToJail -> {
 			player.sendToJail();
-			System.out.println(player + " sent to jail.");
+			System.out.println(player + " was sent to jail.");
 
 			Card getOutOfJail = player.checkGetOutOfJail();
 
@@ -227,7 +227,7 @@ public class Game {
 		}
 		case GoToJail -> {
 			player.sendToJail();
-			System.out.println(player + " sent to jail.");
+			System.out.println(player + " was sent to jail.");
 
 			Card getOutOfJail = player.checkGetOutOfJail();
 
@@ -363,25 +363,26 @@ public class Game {
 		} else if (square instanceof CommunityChestSquare) {
 
 			CommunityChestCard card = (CommunityChestCard) communityChestDeck.pickFromTop();
+			System.out.println(player + " drew a Community Chest Card.");
 			communityChestAction(player, card);
 
 			if (card.getAction() != CommunityChestActions.GetOutOfJail) {
 				communityChestDeck.insertAtBottom(card);
 			}
 
-			System.out.println(player + " drew a Community Chest Card.");
 			System.out.println(CommunityChestDeck.getMessage(card.getAction(), player));
 
 		} else if (square instanceof ChanceSquare) {
 
 			ChanceCard card = (ChanceCard) chanceDeck.pickFromTop();
+			System.out.println(player + " drew a Chance Card.");
 			chanceAction(square, player, dieTotal, card);
 
 			if (card.getAction() != ChanceActions.GetOutOfJail) {
 				chanceDeck.insertAtBottom(card);
 			}
-			System.out.println(player + " drew a Chance Card.");
 			System.out.println(ChanceDeck.getMessage(card.getAction(), player));
+
 		} else if (square instanceof GoToJailSquare) {
 
 			player.sendToJail();
@@ -410,7 +411,7 @@ public class Game {
 
 			if (dieOne == dieTwo && numberOfRolls == 3) {
 				player.sendToJail();
-				System.out.println(player + " sent to jail for rolling doubles thrice.");
+				System.out.println(player + " was sent to jail for rolling doubles thrice.");
 
 				Card getOutOfJail = player.checkGetOutOfJail();
 
