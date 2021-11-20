@@ -1,34 +1,37 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 //TODO Update player UML
 
 public class Game {
 
+	private final UI ui;
 	private final Board board;
 	private final Bank bank;
 	private final ArrayList<Player> players;
 	private final CommunityChestDeck communityChestDeck;
 	private final ChanceDeck chanceDeck;
 
-	Game(int numberOfPlayers) {
+	Game(UI ui, int numberOfPlayers) {
+		this.ui = ui;
 		players = new ArrayList<Player>(numberOfPlayers);
-		System.out.println("Enter name of each player");
-		Scanner in = new Scanner(System.in);
+
+		ui.getNamesOfPlayers(numberOfPlayers, players);
+
+		// System.out.println("Enter name of each player");
+		// Scanner in = new Scanner(System.in);
 
 		// Getting player names from user
 		// Giving each player $1500 and remaining to bank
-		for (int i = 0; i < numberOfPlayers; i++) {
-			players.add(new Player(in.nextLine(), 1500));
-		}
+		// for (int i = 0; i < numberOfPlayers; i++) {
+		// players.add(new Player(in.nextLine(), 1500));
+		// }
 
 		bank = new Bank(20580 - numberOfPlayers * 1500);
 		board = new Board(bank);
+		ui.setBoard(board);
 
 		communityChestDeck = new CommunityChestDeck();
 		chanceDeck = new ChanceDeck();
-
-		in.close();
 	}
 
 	private void useGetOutOfJailCard(Card getOutOfJail, Player player) {
@@ -468,6 +471,12 @@ public class Game {
 			action(square, player, dieOne + dieTwo);
 		} while (dieOne == dieTwo);
 
+	}
+
+	public void simulateRound() {
+		for (int turn = 0; turn < players.size(); turn++) {
+			simulateTurn(turn);
+		}
 	}
 
 	public void displayState() {
