@@ -17,7 +17,7 @@ public class Game {
 
 		ui.getNamesOfPlayers(numberOfPlayers, players);
 
-		// System.out.println("Enter name of each player");
+		// ui.log("Enter name of each player");
 		// Scanner in = new Scanner(System.in);
 
 		// Getting player names from user
@@ -37,10 +37,10 @@ public class Game {
 	private void useGetOutOfJailCard(Card getOutOfJail, Player player) {
 		if (getOutOfJail instanceof CommunityChestCard) {
 			communityChestDeck.insertAtBottom((CommunityChestCard) getOutOfJail);
-			System.out.println(player + " used Community Get Out Of Jail card.");
+			ui.log(player + " used Community Get Out Of Jail card.");
 		} else if (getOutOfJail instanceof ChanceCard) {
 			chanceDeck.insertAtBottom((ChanceCard) getOutOfJail);
-			System.out.println(player + " used Chance Get Out Of Jail card.");
+			ui.log(player + " used Chance Get Out Of Jail card.");
 		}
 
 	}
@@ -143,7 +143,7 @@ public class Game {
 				// Assuming position can be only 3 chance squares.
 				player.addCash(200);
 				bank.deductCash(200);
-				System.out.println(player + " collects $200 for passing GO.");
+				ui.log(player + " collects $200 for passing GO.");
 			}
 			player.setPosition(24);
 			Square sq = board.getSquare(player.getPosition());
@@ -154,7 +154,7 @@ public class Game {
 				// Assuming position can be only 3 chance squares.
 				player.addCash(200);
 				bank.deductCash(200);
-				System.out.println(player + " collects $200 for passing GO.");
+				ui.log(player + " collects $200 for passing GO.");
 			}
 			player.setPosition(11);
 
@@ -164,57 +164,56 @@ public class Game {
 		}
 		case AdvanceToNearestRailroad -> {
 			if (player.getPosition() == 7) {
-				System.out.println(player + " advanced to Pennsylvania Railroad.");
+				ui.log(player + " advanced to Pennsylvania Railroad.");
 				player.setPosition(15);
 			} else if (player.getPosition() == 22) {
-				System.out.println(player + " advanced to B&O Railroad.");
+				ui.log(player + " advanced to B&O Railroad.");
 				player.setPosition(25);
 			} else if (player.getPosition() == 36) {
 				player.setPosition(5);
-				System.out.println(player + " advanced to Reading Railroad.");
+				ui.log(player + " advanced to Reading Railroad.");
 				player.addCash(200);
 				bank.deductCash(200);
-				System.out.println(player + " collects $200 for passing GO.");
+				ui.log(player + " collects $200 for passing GO.");
 			}
 
 			StationSquare sq = (StationSquare) board.getSquare(player.getPosition());
 			Actor owner = sq.getOwner();
 			if (owner == bank)
-				sq.buyProperty(player, bank);
+				sq.buyProperty(player, bank, ui);
 			else if (owner != player) {
 				int rent = 50 * (int) Math.pow(2, ((Player) owner).getStationsOwned() - 1);
 				player.deductCash(rent);
 				owner.addCash(rent);
-				System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+				ui.log(player + " paid $" + rent + " as rent to " + owner + ".");
 			}
 		}
 		case AdvanceToNearestUtility -> {
 			if (player.getPosition() == 7) {
-				System.out.println(player + " advanced to Electric Company.");
+				ui.log(player + " advanced to Electric Company.");
 				player.setPosition(12);
 			} else if (player.getPosition() == 22) {
-				System.out.println(player + " advanced to Water Works.");
+				ui.log(player + " advanced to Water Works.");
 				player.setPosition(28);
 			} else if (player.getPosition() == 36) {
-				System.out.println(player + " advanced to Electric Company.");
+				ui.log(player + " advanced to Electric Company.");
 				player.setPosition(12);
 				player.addCash(200);
 				bank.deductCash(200);
-				System.out.println(player + " collects $200 for passing GO.");
+				ui.log(player + " collects $200 for passing GO.");
 			}
 
 			UtilitySquare sq = (UtilitySquare) board.getSquare(player.getPosition());
 			Actor owner = sq.getOwner();
 			if (owner == bank)
-				sq.buyProperty(player, bank);
+				sq.buyProperty(player, bank, ui);
 			else if (owner != player) {
 				int dieScore = rollDie() + rollDie();
 				int rent = 10 * dieScore;
 				player.deductCash(rent);
 				owner.addCash(rent);
 
-				System.out.println(
-						player + " rolled a " + dieScore + " and paid $" + rent + " as rent to " + owner + ".");
+				ui.log(player + " rolled a " + dieScore + " and paid $" + rent + " as rent to " + owner + ".");
 			}
 		}
 		case ReceiveDividend -> {
@@ -226,7 +225,7 @@ public class Game {
 		}
 		case MoveBack -> {
 			player.setPosition(player.getPosition() - 3);
-			System.out.println(player + " landed on " + board.getSquare(player.getPosition()) + ".");
+			ui.log(player + " landed on " + board.getSquare(player.getPosition()) + ".");
 		}
 		case GoToJail -> {
 			player.sendToJail();
@@ -246,20 +245,20 @@ public class Game {
 		}
 		case AdvanceToReadingRailroad -> {
 			player.setPosition(5);
-			System.out.println(player + " advanced to Reading Railroad.");
+			ui.log(player + " advanced to Reading Railroad.");
 			player.deductCash(200);
 			bank.addCash(200);
-			System.out.println(player + " collects $200 for passing GO.");
+			ui.log(player + " collects $200 for passing GO.");
 
 			StationSquare sq = (StationSquare) board.getSquare(player.getPosition());
 			Actor owner = sq.getOwner();
 			if (owner == bank)
-				sq.buyProperty(player, bank);
+				sq.buyProperty(player, bank, ui);
 			else if (owner != player) {
 				int rent = 50 * (int) Math.pow(2, ((Player) owner).getStationsOwned() - 1);
 				player.deductCash(rent);
 				owner.addCash(rent);
-				System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+				ui.log(player + " paid $" + rent + " as rent to " + owner + ".");
 			}
 		}
 		case PayForBecomingChairman -> {
@@ -284,7 +283,7 @@ public class Game {
 			player.addCash(200);
 			bank.deductCash(200);
 
-			System.out.println(player + " received $200 for landing on Go.");
+			ui.log(player + " received $200 for landing on Go.");
 
 		} else if (square instanceof TaxSquare) {
 
@@ -293,7 +292,7 @@ public class Game {
 			player.deductCash(amount);
 			bank.addCash(amount);
 
-			System.out.println(player + " paid $" + amount + " to bank as " + square + ".");
+			ui.log(player + " paid $" + amount + " to bank as " + square + ".");
 
 		} else if (square instanceof PropertySquare) {
 			// TODO Check sufficient balance, bankruptcy check, possibly auction
@@ -305,7 +304,7 @@ public class Game {
 
 				if (owner == bank) {
 
-					sq.buyProperty(player, bank);
+					sq.buyProperty(player, bank, ui);
 
 				} else if (owner != player) {
 					// Rent is 4 * dieTotal if 1 is owned and 10 * dieTotal if both are owned
@@ -319,7 +318,7 @@ public class Game {
 						player.deductCash(rent);
 						owner.addCash(rent);
 					}
-					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+					ui.log(player + " paid $" + rent + " as rent to " + owner + ".");
 				}
 
 			} else if (square instanceof StationSquare) {
@@ -329,7 +328,7 @@ public class Game {
 
 				if (owner == bank) {
 
-					sq.buyProperty(player, bank);
+					sq.buyProperty(player, bank, ui);
 
 				} else if (owner != player) {
 					// Rent levels are 25, 50, 100, 200
@@ -339,7 +338,7 @@ public class Game {
 					player.deductCash(rent);
 					owner.addCash(rent);
 
-					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+					ui.log(player + " paid $" + rent + " as rent to " + owner + ".");
 				}
 			} else {
 				RealEstateSquare sq = (RealEstateSquare) square;
@@ -347,7 +346,7 @@ public class Game {
 
 				if (owner == bank) {
 
-					sq.buyProperty(player, bank);
+					sq.buyProperty(player, bank, ui);
 
 				} else if (owner != player) {
 					// Rent levels are based on title deed
@@ -357,14 +356,14 @@ public class Game {
 					player.deductCash(rent);
 					owner.addCash(rent);
 
-					System.out.println(player + " paid $" + rent + " as rent to " + owner + ".");
+					ui.log(player + " paid $" + rent + " as rent to " + owner + ".");
 				}
 			}
 		} else if (square instanceof CommunityChestSquare) {
 
 			CommunityChestCard card = (CommunityChestCard) communityChestDeck.pickFromTop();
-			System.out.println(player + " drew a Community Chest Card.");
-			System.out.println(CommunityChestDeck.getMessage(card.getAction(), player));
+			ui.log(player + " drew a Community Chest Card.");
+			ui.log(CommunityChestDeck.getMessage(card.getAction(), player));
 			communityChestAction(player, card);
 
 			if (card.getAction() != CommunityChestActions.GetOutOfJail) {
@@ -374,8 +373,8 @@ public class Game {
 		} else if (square instanceof ChanceSquare) {
 
 			ChanceCard card = (ChanceCard) chanceDeck.pickFromTop();
-			System.out.println(player + " drew a Chance Card.");
-			System.out.println(ChanceDeck.getMessage(card.getAction(), player));
+			ui.log(player + " drew a Chance Card.");
+			ui.log(ChanceDeck.getMessage(card.getAction(), player));
 			chanceAction(square, player, dieTotal, card);
 
 			if (card.getAction() != ChanceActions.GetOutOfJail) {
@@ -385,7 +384,7 @@ public class Game {
 		} else if (square instanceof GoToJailSquare) {
 
 			player.sendToJail();
-			System.out.println(player + " was sent to jail.");
+			ui.log(player + " was sent to jail.");
 		}
 	}
 
@@ -406,11 +405,11 @@ public class Game {
 
 			numberOfRolls++;
 
-			System.out.println(player + " rolled " + dieOne + " & " + dieTwo + ".");
+			ui.log(player + " rolled " + dieOne + " & " + dieTwo + ".");
 
 			if (dieOne == dieTwo && numberOfRolls == 3) {
 				player.sendToJail();
-				System.out.println(player + " was sent to jail for rolling doubles thrice.");
+				ui.log(player + " was sent to jail for rolling doubles thrice.");
 
 				Card getOutOfJail = player.checkGetOutOfJail();
 
@@ -424,14 +423,14 @@ public class Game {
 			if (player.isInJail()) {
 				if (dieOne != dieTwo && player.getTurnsInJail() < 2) {
 					player.setTurnsInJail(player.getTurnsInJail() + 1);
-					System.out.println(player + " stayed in Jail.");
+					ui.log(player + " stayed in Jail.");
 				} else {
 					if (dieOne != dieTwo) {
 						player.deductCash(50);
 						bank.addCash(50);
-						System.out.println(player + " paid $50 as fine to get out of jail.");
+						ui.log(player + " paid $50 as fine to get out of jail.");
 					} else {
-						System.out.println(player + " rolled doubles to get out of jail.");
+						ui.log(player + " rolled doubles to get out of jail.");
 					}
 					player.setInJail(false);
 					player.setTurnsInJail(0);
@@ -440,7 +439,7 @@ public class Game {
 
 					Square square = board.getSquare(player.getPosition());
 
-					System.out.println(player + " landed on " + square + ".");
+					ui.log(player + " landed on " + square + ".");
 
 					action(square, player, dieOne + dieTwo);
 				}
@@ -458,7 +457,7 @@ public class Game {
 					player.addCash(200);
 					bank.deductCash(200);
 
-					System.out.println(player + " received $200 for passing Go.");
+					ui.log(player + " received $200 for passing Go.");
 				}
 			}
 
@@ -466,7 +465,7 @@ public class Game {
 
 			Square square = board.getSquare(player.getPosition());
 
-			System.out.println(player + " landed on " + square + ".");
+			ui.log(player + " landed on " + square + ".");
 
 			action(square, player, dieOne + dieTwo);
 		} while (dieOne == dieTwo);
