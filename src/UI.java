@@ -28,9 +28,11 @@ public class UI {
 	private int totalRounds;
 	private ArrayList<Player> players;
 	private ArrayList<Label> stateLabels;
+	private Label bankCash;
 	private final ArrayList<ArrayList<String>> roundLog;
 	private Game game;
 	private Board board;
+	private Bank bank;
 
 	public UI(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -53,6 +55,10 @@ public class UI {
 		this.board = board;
 	}
 
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+
 	public void initState() {
 		primaryStage.setTitle("Monopoly");
 
@@ -62,7 +68,7 @@ public class UI {
 		primaryHBox.getChildren().add(iv);
 
 		ScrollPane sPane = new ScrollPane(primaryHBox);
-		Scene primaryScene = new Scene(sPane, 1200, 820);
+		Scene primaryScene = new Scene(sPane, 1400, 820);
 
 		primaryStage.setScene(primaryScene);
 	}
@@ -130,6 +136,9 @@ public class UI {
 			gp.add(stateLabels.get((c - 1) * 4 + 3), 4, c);
 			c++;
 		}
+		bankCash = new Label("$" + String.valueOf(bank.getCash()));
+		gp.add(new Label("Bank"), 1, c);
+		gp.add(bankCash, 2, c);
 
 		HBox buttonBar = new HBox();
 		logNumberLabel = new Label(roundNumber + "/" + totalRounds);
@@ -162,6 +171,7 @@ public class UI {
 			stateLabels.get(c * 4 + 3).setText(p.getDeeds());
 			c++;
 		}
+		bankCash.setText("$" + String.valueOf(bank.getCash()));
 		totalRounds++;
 		roundNumber = totalRounds;
 		logNumberLabel.setText(roundNumber + "/" + totalRounds);

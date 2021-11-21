@@ -29,6 +29,7 @@ public class Game {
 		bank = new Bank(20580 - numberOfPlayers * 1500);
 		board = new Board(bank);
 		ui.setBoard(board);
+		ui.setBank(bank);
 
 		communityChestDeck = new CommunityChestDeck();
 		chanceDeck = new ChanceDeck();
@@ -468,7 +469,7 @@ public class Game {
 			ui.log(player + " landed on " + square + ".");
 
 			action(square, player, dieOne + dieTwo);
-		} while (dieOne == dieTwo);
+		} while (dieOne == dieTwo && !player.isInJail());
 
 	}
 
