@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -78,6 +79,7 @@ public class UI {
 		numberInput.setTitle("Number of Players");
 
 		VBox vbox = new VBox(8);
+		vbox.setPadding(new Insets(8));
 		Label label = new Label("Enter number of players");
 		TextField tf = new TextField();
 		tf.setOnAction(e -> numberInput.close());
@@ -100,6 +102,7 @@ public class UI {
 		Label label = new Label();
 		TextField tf = new TextField();
 		VBox vbox = new VBox(8);
+		vbox.setPadding(new Insets(8));
 		vbox.getChildren().addAll(label, tf);
 
 		tempCount = 0;
@@ -122,8 +125,12 @@ public class UI {
 	}
 
 	public void addSimulationPanel() {
+
 		stateLabels = new ArrayList<Label>(numberOfPlayers * 3);
 		GridPane gp = new GridPane();
+		gp.setHgap(8);
+		gp.add(new Label("Game State"), 2, 0);
+
 		int c = 1;
 		for (Player p : players) {
 			stateLabels.add(new Label(p.getName()));
@@ -140,7 +147,7 @@ public class UI {
 		gp.add(new Label("Bank"), 1, c);
 		gp.add(bankCash, 2, c);
 
-		HBox buttonBar = new HBox();
+		HBox buttonBar = new HBox(8);
 		logNumberLabel = new Label(roundNumber + "/" + totalRounds);
 		Button simulateRound = new Button("Simulate Round");
 
@@ -159,6 +166,7 @@ public class UI {
 
 		buttonBar.getChildren().addAll(viewPrevious, logNumberLabel, viewNext, simulateRound);
 
+		primaryVBox.setPadding(new Insets(8));
 		primaryVBox.getChildren().addAll(gp, buttonBar, logPanel);
 		primaryHBox.getChildren().add(primaryVBox);
 	}
