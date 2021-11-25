@@ -17,15 +17,6 @@ public class Game {
 
 		ui.getNamesOfPlayers(numberOfPlayers, players);
 
-		// ui.log("Enter name of each player");
-		// Scanner in = new Scanner(System.in);
-
-		// Getting player names from user
-		// Giving each player $1500 and remaining to bank
-		// for (int i = 0; i < numberOfPlayers; i++) {
-		// players.add(new Player(in.nextLine(), 1500));
-		// }
-
 		bank = new Bank(20580 - numberOfPlayers * 1500);
 		board = new Board(bank);
 		ui.setBoard(board);

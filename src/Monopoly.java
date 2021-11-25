@@ -24,15 +24,6 @@ public class Monopoly extends Application {
 		ui.addSimulationPanel();
 
 		primaryStage.show();
-
-		// TODO control number of rounds
-		// for (int round = 0; round < 20; round++) {
-		// for (int turn = 0; turn < numberOfPlayers; turn++) {
-		// game.simulateTurn(turn);
-		// }
-		// game.displayState();
-		// ui.updateState();
-		// }
 	}
 
 }
